@@ -7,6 +7,20 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:                # creates a button to execute from outside of repo
+    inputs:
+      image_version:
+        description: 'Please specify a version'
+        required: false
+        default: "latest"
+      tools_to_build:
+        description: 'Please specify a tool'
+        required: false
+        default: "tool"        
+     
+
+
+
+
 
 jobs:
 
@@ -38,7 +52,8 @@ jobs:
   terraform-build:
 
     runs-on: ubuntu-latest
-    
+    if: github.event.inputs.tools_to_build == 'terraform'
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
